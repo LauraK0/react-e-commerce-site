@@ -18,7 +18,7 @@ export async function getServerSideProps() {
 export default function Homepage({ comicsData, allPublishers }) {
   const companyTitle = 'Crazy for Comics!';
   const companyFooter = 'For further contact, crazyforcomics@superpowers.pizza';
-  const [publisher, setPublisher] = useState('all');
+  const [publisher, setPublisher] = useState({filter: 'all'});
 
   return (
     <div className={style.background}>
