@@ -1,21 +1,21 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import ComicCard from '../components/ComicCards';
+import ComicCards from '../components/ComicCards';
 import Filter from '../components/Filter';
-import { getAllComics } from 'database/model';
+import { getAllComics, getAllPublishers } from 'database/model';
 import { useState } from 'react';
 import style from '../styles/index.module.css';
 
 export async function getServerSideProps() {
-  let comicsData = getAllComics();
+  let comicsData = await getAllComics();
+  let allPublishers = await getAllPublishers();
   return {
     props: {
       comicsData,
+      allPublishers,
     },
   };
 }
 
-export default function Homepage({ comicsData }) {
+export default function Homepage({ comicsData, allPublishers }) {
   const companyTitle = 'Crazy for Comics!';
   const companyFooter = 'For further contact, crazyforcomics@superpowers.pizza';
   const [publisher, setPublisher] = useState('all');
@@ -26,12 +26,12 @@ export default function Homepage({ comicsData }) {
         <h1>{companyTitle}</h1>
       </header>
       <Filter
-        comicsData={comicsData}
+        allPublishers={allPublishers}
         publisher={publisher}
         setPublisher={setPublisher}
       />
       <div className={style.gridContainer}>
-        <ComicCard comicsData={comicsData} publisher={publisher} />
+        <ComicCards comicsData={comicsData} publisher={publisher} />
       </div>
       <footer>{companyFooter}</footer>
     </div>

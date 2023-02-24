@@ -2,7 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import style from '../styles/comicCard.module.css';
 
-export default function ComicCard({ comicsData, publisher }) {
+export default function ComicCards({ comicsData, publisher }) {
+  //eslint-disable-next-line no-console
+  console.log('publisher', publisher);
   if (publisher.filter === undefined) {
     return comicsData.map((comic) => (
       <div className={style.comicContainer} key={comic.id}>

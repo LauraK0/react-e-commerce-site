@@ -31,7 +31,7 @@ const get_comic_by_ID = db.prepare(/*sql*/ `SELECT
   comics.issue,
   comics.comic_desc, 
   comics.image_path, 
-  FORMAT ('£%.2f', comics.price) AS PRICE, 
+  FORMAT ('£%.2f', comics.price) AS PRICE, -- we universally applied 'comics.' and broke this line
   comics.publisher_id, 
   comics.published_month, 
   comics.published_year, 
@@ -44,4 +44,19 @@ const get_comic_by_ID = db.prepare(/*sql*/ `SELECT
 
 export function getComicByID(id) {
   return get_comic_by_ID.get(id);
+}
+
+//Gets all publishers from the database
+const get_all_publishers = db.prepare(
+  /*sql*/
+  `SELECT
+  id,
+  name
+FROM
+publishers
+`
+);
+
+export function getAllPublishers() {
+  return get_all_publishers.all();
 }
